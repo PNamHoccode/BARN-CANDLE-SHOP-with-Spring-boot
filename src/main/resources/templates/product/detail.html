@@ -1,0 +1,172 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic (~{::main})}">
+	<main th:object="${item}" class="poly-item-detail">
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-body text-center">
+					<img th:src="@{|/assets/images/*{image}|}">
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<ul>
+						<li th:text="*{name}"></li>
+						<li th:text="*{price}"></li>
+						<li th:text="*{createDate}"></li>
+						<li th:text="*{category.name}"></li>
+					</ul>
+				</div>
+				<div class="panel-footer text-right">
+					<p th:replace="~{/product/_actions::item_id(${item.id})}"/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading">HÀNG CÙNG LOẠI
+				</div>
+				<div class="panel-body">
+					<ul>
+						<li th:each="p:*{category.products}">
+							<a th:href="@{|/product/detail/${p.id}|}" th:text="${p.name}"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+<style>
+.poly-item-detail {
+    background-color: #f9f1db; /* Màu nền vàng nhạt */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Row chứa hình ảnh và thông tin sản phẩm */
+.poly-item-detail .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+/* Phần chứa hình ảnh */
+.poly-item-detail .panel-primary:first-child {
+    flex: 1; /* Để hình ảnh nhỏ lại */
+    max-width: 300px; /* Giới hạn kích thước tối đa của hình ảnh */
+    margin-right: 20px; /* Khoảng cách giữa hình và thông tin */
+}
+
+.poly-item-detail .panel-body.text-center img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Phần chứa thông tin sản phẩm */
+.poly-item-detail .panel-primary:nth-child(2) {
+    flex: 2; /* Thông tin sản phẩm chiếm nhiều diện tích hơn */
+}
+
+.poly-item-detail ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.poly-item-detail ul li {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.poly-item-detail ul li:first-child {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.poly-item-detail ul li:nth-child(2) {
+    color: green;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Mã sản phẩm */
+.poly-item-detail ul li:nth-child(3),
+.poly-item-detail ul li:nth-child(4) {
+    font-style: italic;
+}
+
+/* Footer panel */
+.panel-footer {
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* Hàng cùng loại */
+.poly-item-detail .panel-heading {
+    background-color: #f8d568; /* Màu vàng sáng */
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.poly-item-detail .panel-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.poly-item-detail .panel-body ul li a {
+    text-decoration: none;
+    color: #2d8659;
+    font-size: 18px;
+}
+
+.poly-item-detail .panel-body ul li a:hover {
+    color: #3fbf65; /* Màu hover */
+    text-decoration: underline;
+}
+
+/* Nút hành động */
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn-success {
+    background-color: #3fbf65;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #2d8659;
+    color: white;
+}
+
+.btn-success:hover,
+.btn-primary:hover {
+    opacity: 0.8;
+}
+
+/* Số lượng sản phẩm */
+.quantity {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.quantity button {
+    background-color: #ddd;
+    border: none;
+    font-size: 18px;
+    padding: 5px 10px;
+}
+
+.quantity input {
+    text-align: center;
+    width: 50px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+}
+
+</style>
